@@ -17,15 +17,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // Get request for start page
-app.get('/', (reg, res)=>{
+app.get('/', (req, res)=>{
     res.sendFile(path,join(__dirname, '/public/index.html'))
 })
 
 // Get request for notes page
-app.get('/notes', (reg, res)=>{
+app.get('/notes', (req, res)=>{
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 });
 
+// Get request for the notes to display on left side from the api
+app.get('/api/notes', (req, res)=>{
+    const givenNotes = require('./db/db.json')
+    res.json(givenNotes);
+})
 
 
 
