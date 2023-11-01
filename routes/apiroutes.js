@@ -29,7 +29,7 @@ router.post('/notes', (req, res) => {
     })
 })
 
-
+// this will delete notes based on what note was clicked using it ids
 router.delete('/notes/:id', (req, res) => {
     fs.readFile('./db/db.json', (err, data) => {
         if (err) throw err;
