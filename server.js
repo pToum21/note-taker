@@ -41,7 +41,7 @@ app.post('/api/notes', (req, res) => {
     givenNotes.push(newNote)
 
     fs.writeFile('./db/db.json', JSON.stringify(givenNotes, null, 2), err => {
-        if (err) throw Error
+        if (err) throw Error ('Oh No Something Went Wrong!')
         res.status(201).end();
     })
 })
