@@ -17,31 +17,31 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // Get request for start page
-app.get('/', (req, res)=>{
-    res.sendFile(path,join(__dirname, '/public/index.html'))
+app.get('/', (req, res) => {
+    res.sendFile(path, join(__dirname, '/public/index.html'))
 })
 
 // Get request for notes page
-app.get('/notes', (req, res)=>{
+app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 });
 
 // Get request for the notes to display on left side from the api
-app.get('/api/notes', (req, res)=>{
+app.get('/api/notes', (req, res) => {
     const givenNotes = require('./db/db.json')
     res.json(givenNotes);
 })
 
-app.post('/api/notes', (req, res)=>{
+app.post('/api/notes', (req, res) => {
     console.info(`${req.method} request recivied to add a note`)
     const givenNotes = require('./db/db.json')
     const newNote = req.body
     givenNotes.push(newNote)
-    
-    fs.writeFile('./db/db.json', JSON.stringify(givenNotes, null, 2), err =>{
+
+    fs.writeFile('./db/db.json', JSON.stringify(givenNotes, null, 2), err => {
         if (err) throw err
         res.json({
-            message:'Note Saved!'
+            message: 'Note Saved!'
         })
     })
 })
@@ -54,5 +54,5 @@ app.post('/api/notes', (req, res)=>{
 
 // listen for connections on specified ports
 app.listen(PORT, () =>
-  console.log(`App listening at http://localhost:${PORT}`)
+    console.log(`App listening at http://localhost:${PORT}`)
 );
