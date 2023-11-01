@@ -32,6 +32,20 @@ app.get('/api/notes', (req, res)=>{
     res.json(givenNotes);
 })
 
+app.post('/api/notes', (req, res)=>{
+    console.info(`${req.method} request recivied to add a note`)
+    const givenNotes = require('./db/db.json')
+    const newNote = req.body
+    givenNotes.push(newNote)
+    
+    fs.writeFile('./db/db.json', JSON.stringify(givenNotes, null, 2), err =>{
+        if (err) throw err
+        res.json({
+            message:'Note Saved!'
+        })
+    })
+})
+
 
 
 
