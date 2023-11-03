@@ -31,6 +31,7 @@ you must install node and express using init -y and npm i to download all depend
 You must run npm run start in the terminal to test the README.md generator.
 
 ## Preview Photo
+![Note Taker - Google Chrome 11_2_2023 6_38_30 PM](https://github.com/pToum21/note-taker/assets/138056441/35d5c482-d447-4cbc-8a70-055f98524e67)
 
 ## Deployed Link
 https://note-theif-91f31a4f77d2.herokuapp.com/notes
