@@ -31,7 +31,6 @@ const readAndAppend = (content, file) => {
   });
 };
 
-
 const readAndRemove = (content, file) => {
   fs.readFile(file, 'utf8', (err, data) => {
     if (err) {

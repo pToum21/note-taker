@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const fs = require('fs');
-const { readAndRemove, readFromFile, readAndAppend } = require('../helpers/fsUtils')
+const { readAndRemove, readFromFile, readAndAppend } = require('../helpers/fsUtils');
 
 // function that generates a random number for the notes id 
 function randomID() {
