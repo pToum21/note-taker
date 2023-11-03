@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const fs = require('fs');
+const { readAndRemove, readFromFile, readAndAppend } = require('../helpers/fsUtils')
 
 // function that generates a random number for the notes id 
 function randomID() {
@@ -11,37 +12,24 @@ function randomID() {
 // all routes prepeneded with '/api'
 
 router.get('/notes', (req, res) => {
-    const givenNotes = require('../db/db.json')
-    res.json(givenNotes);
+    readFromFile('./db/db.json').then(data => res.json(JSON.parse(data)))
 })
 
 
 // this will write notes to the db.json file which will also add it to the page
 router.post('/notes', (req, res) => {
-    console.info(`${req.method} request recivied to add a note`)
-    const givenNotes = require('../db/db.json')
-    const newNote = req.body
-    givenNotes.push(newNote)
-    newNote.id = randomID()
-    fs.writeFile('./db/db.json', JSON.stringify(givenNotes, null, 2), err => {
-        if (err) throw Error('Oh No Something Went Wrong!')
-        res.status(201).end();
-    })
+    const newNote = {title: req.body.title, text: req.body.text, id:randomID()}
+    readAndAppend(newNote, "./db/db.json")
+    res.json(newNote)
 })
 
 // this will delete notes based on what note was clicked using it ids
 router.delete('/notes/:id', (req, res) => {
-    fs.readFile('./db/db.json', (err, data) => {
-        if (err) throw err;
-        const deleteNotes = JSON.parse(data)
-        const updatedNotes = deleteNotes.filter(note => note.id !== req.params.id);
-
-        fs.writeFile('./db/db.json', JSON.stringify(updatedNotes, null, 2), err => {
-            if (err) { throw Error('Oh No Something Went Wrong!') } else { console.log('Note Deleted') }
-            res.json(updatedNotes)
-        })
-    })
+    readAndRemove(req.params.id, './db/db.json')
+    res.json('Deleted')
 })
+
+
 
 
 module.exports = router;

@@ -14,6 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // stactic public folder
 app.use(express.static('public'));
+
+// brings in all routes
 app.use(routes)
 
 
